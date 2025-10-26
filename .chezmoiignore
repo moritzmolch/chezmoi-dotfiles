@@ -1,2 +1,2 @@
 # lua files in neovim config
-nvim/lazy-lock.json
+.config/nvim/lazy-lock.json
