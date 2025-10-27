@@ -4,9 +4,26 @@
 --- Neovim editor settings
 ---
 
+
+-------------------------------
+-- Display and input options --
+-------------------------------
+
+
+-- Use terminal GUI colors
+vim.o.termguicolors = true
+
+-- Enable use of the mouse to navigate
+vim.o.mouse = "a"
+
+
 -------------------------------
 -- File settings and backups --
 -------------------------------
+
+-- Use UTF-8 encoding
+vim.o.encoding = "utf-8"
+vim.o.fileencoding = "utf-8"
 
 -- Update the swap file when there has been no input for 500 ms
 vim.o.updatetime = 500
@@ -21,16 +38,51 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 -- Line numbers and line wrapping --
 ------------------------------------
 
+-- Wrap text when the displayed line is exhausted
+vim.o.wrap = true
+
+-- Do not break inside words
+vim.o.linebreak = true
+
+-- Insert linebreaks after 79 characters for text-based filetypes
+vim.api.nvim_create_autocmd(
+    {"FileType"},
+    {
+        pattern = {"*.txt", ".md"},
+        callback = function ()
+            -- Linebreak after 79 characters
+            vim.opt_local.textwidth = 79
+
+            -- Enable auto-formatting options
+            -- - t: auto-wrap text using 'textwidth'
+            -- - c: auto-wrap comments using 'textwidth'; the comment leader is
+            --      inserted automatically
+            -- - r: Automatically insert current comment leader after hitting
+            --      <Enter>
+            vim.opt_local.formatoptions = "tcr"
+        end,
+    }
+)
 
 -- Insert an additional sign column (e.g., for git change indicators)
 vim.o.signcolumn = "yes"
 
--- Show current column of the cursor
+-- Show current cursor line and column
 vim.o.cursorline = true
+vim.o.cursorcolumn = true
 
--- indicate column 80 (expected 
+-- Indicate column 80 for linebreak
 vim.o.colorcolumn = 80
 
+-- Show relative line numbers in the right column
+vim.o.number = true
+vim.o.relativenumber = true
+
+-- Start scrolling 5 lines from the top/bottom
+vim.o.scrolloff = 5
+
+-- Show cursor position in the lower right corner
+vim.o.ruler = true
 
 --------------------------------
 -- Tabulators and indentation --
@@ -40,7 +92,8 @@ vim.o.colorcolumn = 80
 -- Expand tabs to spaces
 vim.o.expandtab = true
 
--- Use smart indentation
+-- Use automatic and smart indentation
+vim.o.autoindent = true
 vim.o.smartindent = true
 
 -- By default, use a tab width of four spaces
@@ -70,22 +123,30 @@ for file_type, tab_size in pairs(tab_sizes) do
 end
 
 
-------------
--- Search --
-------------
+------------------------
+-- Search and replace --
+------------------------
 
+-- Incremental search and match highlighting
+vim.o.incsearch = true
+vim.o.hlsearch = true
 
--- Smartly decide whether to search case sensitive or insensitive
+-- Ignore case in general, but smartly decide whether to search case sensitive
+-- or insensitive
+vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Show substitutions in split window
+vim.o.inccommand = "split"
 
---------------------
--- Spell checking --
---------------------
+
+--------------------------
+-- Text editing helpers --
+--------------------------
 
 
 -- Use english spell checker
-vim.opt.spelllang = "en_us"
+vim.o.spelllang = "en_us"
 
 -- Activate spell checker only in text files
 vim.api.nvim_create_autocmd(
@@ -98,6 +159,10 @@ vim.api.nvim_create_autocmd(
     }
 )
 
+-- Characters to highlight tabs, trailing whitespace, and non-breakable
+-- space characters
+vim.o.listchars = {tab = ">~", nbsp = "_", trail = "."},
+vim.o.list = true
 
 
 ---------------
@@ -117,6 +182,20 @@ vim.api.nvim_set_option("clipboard", "unnamedplus")
 -- Pop up completion menu also when there is only exactly one match.
 -- Do not select any item before user picks one.
 vim.o.completeopt = "menuone,noselect"
+
+-- show commands as they are typed
+vim.o.showcmd = true
+
+
+----------------------------------
+-- Window and buffer management --
+----------------------------------
+
+-- When horizontally splitting, the new window is below the current one
+vim.o.splitbelow = true
+
+-- When vertically splitting, the new window is right of the current one
+vim.o.splitright = true
 
 
 -------------
