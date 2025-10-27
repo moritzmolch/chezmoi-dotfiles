@@ -72,7 +72,7 @@ vim.o.cursorline = true
 vim.o.cursorcolumn = true
 
 -- Indicate column 80 for linebreak
-vim.o.colorcolumn = 80
+vim.o.colorcolumn = "80"
 
 -- Show relative line numbers in the right column
 vim.o.number = true
@@ -161,7 +161,7 @@ vim.api.nvim_create_autocmd(
 
 -- Characters to highlight tabs, trailing whitespace, and non-breakable
 -- space characters
-vim.o.listchars = {tab = ">~", nbsp = "_", trail = "."},
+vim.o.listchars = "tab:>~,nbsp:_,trail:."
 vim.o.list = true
 
 
