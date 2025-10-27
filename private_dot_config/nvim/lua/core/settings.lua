@@ -205,24 +205,45 @@ vim.o.splitright = true
 -- Set leader key for commands
 vim.g.mapleader = ","
 
--- Create new tabs
-vim.keymap.set("n", "<M-t>", ":tabnew<CR>", { desc = "Create a new tab" })
+-- Remap "-" as leader key
+keymap("", ",", "<Nop>", { noremap = true, silent = true })
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
--- Switch between tabs
-vim.keymap.set("n", "<M-Left>", ":tabp<CR>", { desc = "Move to the tab left of the current one" })
-vim.keymap.set("n", "<M-Right>", ":tabn<CR>", { desc = "Move to the tab left of the current one" })
+-- Create new tabs
+vim.keymap.set("n", "<M-t>", ":tabnew<CR>", { noremap = true, silent = true, desc = "Create a new tab" })
+
+-- Move between tabs
+vim.keymap.set("n", "<C-t>h", ":tabp<CR>", { noremap = true, silent = true, desc = "Move to the previous tab" })
+vim.keymap.set("n", "<C-t>l", ":tabn<CR>", { noremap = true, silent = true, desc = "Move to the next tab" })
+
+-- Move between buffers
+keymap("n", "<S-h>", ":bp<CR>", { noremap = true, silent = true, desc = "Move to the previous buffer" })
+keymap("n", "<S-l>", ":bn<CR>", { noremap = true, silent = true, desc = "Move to the next buffer" })
+
+-- Move between split buffers 
+vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to the split left of the current one" })
+vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to the split below the current one" })
+vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to the split above the current one" })
+vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to the tab right of the current one" })
+
+-- Use arrows to resize splits
+keymap("n", "<Up>", ":resize +2<CR>", opts)
+keymap("n", "<Down>", ":resize -2<CR>", opts)
+keymap("n", "<Left>", ":vertical resize +2<CR>", opts)
+keymap("n", "<Right>", ":vertical resize -2<CR>", opts)
 
 -- Use <ESC> to get back to NORMAL mode in terminal emulator
-vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = "Exit TERMINAL mode and go back to NORMAL" })
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Exit TERMINAL mode and go back to NORMAL" })
 
 -- Load telescope functions
 local builtin = require('telescope.builtin')
 
--- 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+-- Keymaps for different modes of telescope
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { noremap = true, silent = true, desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { noremap = true, silent = true, desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true, desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { noremap = true, silent = true, desc = 'Telescope help tags' })
 
 
 -------------------
