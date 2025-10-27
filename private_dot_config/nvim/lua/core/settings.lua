@@ -202,11 +202,9 @@ vim.o.splitright = true
 -- Keymaps --
 -------------
 
--- Set leader key for commands
-vim.g.mapleader = ","
 
--- Remap "-" as leader key
-keymap("", ",", "<Nop>", { noremap = true, silent = true })
+-- Set leader key for commands
+vim.keymap.set("", ",", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
@@ -218,8 +216,8 @@ vim.keymap.set("n", "<C-t>h", ":tabp<CR>", { noremap = true, silent = true, desc
 vim.keymap.set("n", "<C-t>l", ":tabn<CR>", { noremap = true, silent = true, desc = "Move to the next tab" })
 
 -- Move between buffers
-keymap("n", "<S-h>", ":bp<CR>", { noremap = true, silent = true, desc = "Move to the previous buffer" })
-keymap("n", "<S-l>", ":bn<CR>", { noremap = true, silent = true, desc = "Move to the next buffer" })
+vim.keymap.set("n", "<S-h>", ":bp<CR>", { noremap = true, silent = true, desc = "Move to the previous buffer" })
+vim.keymap.set("n", "<S-l>", ":bn<CR>", { noremap = true, silent = true, desc = "Move to the next buffer" })
 
 -- Move between split buffers 
 vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to the split left of the current one" })
@@ -228,10 +226,10 @@ vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true, silent = true, desc = "
 vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to the tab right of the current one" })
 
 -- Use arrows to resize splits
-keymap("n", "<Up>", ":resize +2<CR>", opts)
-keymap("n", "<Down>", ":resize -2<CR>", opts)
-keymap("n", "<Left>", ":vertical resize +2<CR>", opts)
-keymap("n", "<Right>", ":vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<Up>", ":resize +2<CR>", opts)
+vim.keymap.set("n", "<Down>", ":resize -2<CR>", opts)
+vim.keymap.set("n", "<Left>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
 
 -- Use <ESC> to get back to NORMAL mode in terminal emulator
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Exit TERMINAL mode and go back to NORMAL" })
