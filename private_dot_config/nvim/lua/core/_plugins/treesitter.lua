@@ -7,6 +7,9 @@
 
 return {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     lazy = false,
     build = ":TSUpdate",
     config = function ()
@@ -68,7 +71,16 @@ return {
                 enable = true,
                 disable = {},
                 additional_vim_regex_highlighting = false,
-            }
+            },
+            textobjects = {
+                select = {
+                    enable = true,
+                    keymaps = {
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                    },
+                },
+            },
         })
     end,
 }
