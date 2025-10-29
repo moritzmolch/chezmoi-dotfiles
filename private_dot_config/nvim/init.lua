@@ -15,4 +15,5 @@ require("core.plugins")
 -- Load module with basic editor settings
 require("core.settings")
 
-
+-- Load LSP configuration
+require("core.lsp")
