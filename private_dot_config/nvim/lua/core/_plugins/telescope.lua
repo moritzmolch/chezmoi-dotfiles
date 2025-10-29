@@ -49,5 +49,12 @@ return {
         -- Load live grep and fzf extensions
         telescope.load_extension('live_grep_args')
         telescope.load_extension('fzf')
+
+	-- Keymaps for different modes of telescope
+	local builtin = require('telescope.builtin')
+	vim.keymap.set('n', '<leader>ff', builtin.find_files, { noremap = true, silent = true, desc = 'Telescope find files' })
+	vim.keymap.set('n', '<leader>fg', builtin.live_grep, { noremap = true, silent = true, desc = 'Telescope live grep' })
+	vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true, desc = 'Telescope buffers' })
+	vim.keymap.set('n', '<leader>fh', builtin.help_tags, { noremap = true, silent = true, desc = 'Telescope help tags' })
     end,
 }

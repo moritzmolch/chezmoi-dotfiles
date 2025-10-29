@@ -233,15 +233,6 @@ vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
 -- Use <ESC> to get back to NORMAL mode in terminal emulator
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Exit TERMINAL mode and go back to NORMAL" })
 
--- Load telescope functions
-local builtin = require('telescope.builtin')
-
--- Keymaps for different modes of telescope
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { noremap = true, silent = true, desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { noremap = true, silent = true, desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true, desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { noremap = true, silent = true, desc = 'Telescope help tags' })
-
 
 -------------------
 -- Miscallaneous --
