@@ -104,7 +104,6 @@ vim.o.shiftwidth = 4
 -- Use diverging tabwidths for some filetypes
 local tab_sizes = {
   lua = 2,
-  tex = 2,
   yaml = 2,
   NvimTree = 2,
 }
