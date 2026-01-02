@@ -1,0 +1,17 @@
+[user]
+    name = moritzmolch
+    email = moritz.molch@kit.edu
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[merge]
+    conflictstyle = diff3
+    tool = nvim
+
+[mergetool "nvim"]
+    cmd = nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+
