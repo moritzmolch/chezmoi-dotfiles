@@ -14,8 +14,24 @@ vim.lsp.config(
   }
 )
 
+-- Configure rust analyzer
+vim.lsp.config(
+  "rust-analyzer",
+  {
+    settings = {
+      ["rust_analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  }
+)
+
+
 -- List of active LSPs
 vim.lsp.enable({
   "basedpyls",
+  "rust-analyzer",
 })
 
