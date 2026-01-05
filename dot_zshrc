@@ -76,8 +76,16 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-PROMPT="${PROMPT}\$(vi_mode_prompt_info)"
-RPROMPT="\$(vi_mode_prompt_info)${RPROMPT}"
+# Source additional sub-configs in .zshrc.d
+_zshrc_dir="${HOME}/.zshrc.d"
+typeset -ga _zshrcd_files=("${HOME}/.zshrc.d"/*.{sh,zsh}(N))
+typeset -g _zshrcd_file
+for _zshrcd_file in ${(o)_zshrcd_files}; do
+    [[ ${_zshrcd_file:t} != '~'* ]] || continue
+    source "${_zshrcd_file}"
+done
+unset _zshrcd_files
+unset _zshrcd_file
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
