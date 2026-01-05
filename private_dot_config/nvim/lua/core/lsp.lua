@@ -16,7 +16,7 @@ vim.lsp.config(
 
 -- Configure rust analyzer
 vim.lsp.config(
-  "rust-analyzer",
+  "rust_analyzer",
   {
     settings = {
       ["rust_analyzer"] = {
@@ -32,6 +32,6 @@ vim.lsp.config(
 -- List of active LSPs
 vim.lsp.enable({
   "basedpyls",
-  "rust-analyzer",
+  "rust_analyzer",
 })
 
