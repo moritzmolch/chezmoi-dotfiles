@@ -4,12 +4,14 @@
 -- LSP configuration for neovim version >= 0.11
 --
 
+-- Load capabilities from other modules
+cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Basic configuration of LSP capabilities and behavior
 vim.lsp.config(
   "*",
   {
-    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    capabilities = cmp_capabilities,
     root_markers = { ".git" },
   }
 )
