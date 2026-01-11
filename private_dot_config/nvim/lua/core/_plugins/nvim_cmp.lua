@@ -12,6 +12,8 @@ return {
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
         "onsails/lspkind.nvim",
     },
     config = function ()
@@ -21,9 +23,11 @@ return {
         -- load lspkind module for adding icons to suggestions
         lspkind = require("lspkind")
 
+        -- load luasnip
+        local luasnip = require("luasnip")
+
         -- basic cmp setup
         cmp.setup({
-            -- TODO snippets
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
@@ -35,10 +39,16 @@ return {
                 ["<C-e>"] = cmp.mapping.abort(),
                 ["<CR>"] = cmp.mapping.confirm({ select = true }),
             }),
+            snippet = {
+              expand = function(args)
+                luasnip.lsp_expand(args.body)
+              end,
+            },
             sources = cmp.config.sources({
                 { name = "path" },
                 { name = "buffer" },
                 { name = "nvim_lsp" },
+                { name = "luasnip" },
             }),
             formatting = {
               format = lspkind.cmp_format({
