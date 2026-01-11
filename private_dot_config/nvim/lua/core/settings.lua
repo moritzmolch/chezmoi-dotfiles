@@ -207,22 +207,26 @@ vim.keymap.set("", ",", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
--- Create new tabs
-vim.keymap.set("n", "<M-t>", ":tabnew<CR>", { noremap = true, silent = true, desc = "Create a new tab" })
+-- Move between split buffers with Ctrl-[hjkl] in normal mode
+vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to the split left of the current one" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to the split below the current one" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to the split above the current one" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to the tab right of the current one" })
 
--- Move between tabs
+-- Move between loaded buffers with <C-b>[hl]
+vim.keymap.set("n", "<C-b>h", ":bp<CR>", { noremap = true, silent = true, desc = "Move to the previous buffer" })
+vim.keymap.set("n", "<C-b>l", ":bn<CR>", { noremap = true, silent = true, desc = "Move to the next buffer" })
+
+-- Create new tabs with <C-t>n
+vim.keymap.set("n", "<C-t>n", ":tabnew<CR>", { noremap = true, silent = true, desc = "Create a new tab" })
+
+-- Move between tabs with <C-t>[hl]
 vim.keymap.set("n", "<C-t>h", ":tabp<CR>", { noremap = true, silent = true, desc = "Move to the previous tab" })
 vim.keymap.set("n", "<C-t>l", ":tabn<CR>", { noremap = true, silent = true, desc = "Move to the next tab" })
 
--- Move between buffers
-vim.keymap.set("n", "<S-h>", ":bp<CR>", { noremap = true, silent = true, desc = "Move to the previous buffer" })
-vim.keymap.set("n", "<S-l>", ":bn<CR>", { noremap = true, silent = true, desc = "Move to the next buffer" })
-
--- Move between split buffers 
-vim.keymap.set("n", "<A-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to the split left of the current one" })
-vim.keymap.set("n", "<A-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to the split below the current one" })
-vim.keymap.set("n", "<A-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to the split above the current one" })
-vim.keymap.set("n", "<A-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to the tab right of the current one" })
+-- Move selected text up and down with Ctrl-[jk]
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move visual block selection down" })
+vim.keymap.set("v", "<C-k>", ":m '>-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move visual block selection up" })
 
 -- Use arrows to resize splits
 vim.keymap.set("n", "<Up>", ":resize +2<CR>", opts)
@@ -230,7 +234,7 @@ vim.keymap.set("n", "<Down>", ":resize -2<CR>", opts)
 vim.keymap.set("n", "<Left>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
 
--- Use <ESC> to get back to NORMAL mode in terminal emulator
+-- Use <ESC> to get back to NORMAL mode in terminal mode
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Exit TERMINAL mode and go back to NORMAL" })
 
 
