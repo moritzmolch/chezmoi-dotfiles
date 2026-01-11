@@ -52,7 +52,13 @@ return {
             }),
             formatting = {
               format = lspkind.cmp_format({
+                with_text = true,
                 mode = "symbol",
+                menu = {
+                  buffer = "[Buffer]",
+                  nvim_lsp = "[LSP]",
+                  nvim_lua = "[Lua]",
+                },
                 maxwidth = {
                   menu = 50,
                   abbr = 50,
@@ -80,7 +86,7 @@ return {
             {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    { 
+                    {
                         name = "cmdline",
                         option = {
                             ignore_cmds = { "Man", "!" },  -- ignore the manpage and the ! commands for auto-completion
