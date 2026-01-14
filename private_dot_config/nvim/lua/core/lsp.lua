@@ -4,10 +4,14 @@
 -- LSP configuration for neovim version >= 0.11
 --
 
--- Load capabilities from other modules
+
+--
+-- Basic configuration of LSP capabilities and behavior
+--
+
+-- Load capabilities from nvim_cmp for auto-completion
 cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Basic configuration of LSP capabilities and behavior
 vim.lsp.config(
   "*",
   {
@@ -16,7 +20,11 @@ vim.lsp.config(
   }
 )
 
--- Configure rust analyzer
+
+--
+-- Configure rust_analyzer
+--
+
 vim.lsp.config(
   "rust_analyzer",
   {
@@ -24,16 +32,89 @@ vim.lsp.config(
       ["rust_analyzer"] = {
         checkOnSave = {
           command = "clippy",
-        },
+         },
       },
     },
   }
 )
 
 
--- List of active LSPs
+--
+-- Configure basedpyright
+--
+
+local function set_python_path(command)
+  local path = command.args
+  local clients = vim.lsp.get_clients {
+    bufnr = vim.api.nvim_get_current_buf(),
+    name = 'basedpyright',
+  }
+  for _, client in ipairs(clients) do
+    if client.settings then
+      ---@diagnostic disable-next-line: param-type-mismatch
+      client.settings.python = vim.tbl_deep_extend('force', client.settings.python or {}, { pythonPath = path })
+    else
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+    end
+    client:notify('workspace/didChangeConfiguration', { settings = nil })
+  end
+end
+
+vim.lsp.config(
+  "basedpyright",
+  {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    filetypes = { "python" },
+    root_markers = {
+      "pyrightconfig.json",
+      "pyproject.toml",
+      "setup.py",
+      "setup.cfg",
+      "requirements.txt",
+      "Pipfile",
+      ".git",
+    },
+    settings = {
+      basedpyright = {
+        analysis = {
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = "openFilesOnly",
+        },
+      },
+    },
+    on_attach = function(client, bufnr)
+      vim.api.nvim_buf_create_user_command(bufnr, "LspPyrightOrganizeImports", function()
+        local params = {
+          command = "basedpyright.organizeimports",
+          arguments = { vim.uri_from_bufnr(bufnr) },
+        }
+
+        -- Using client.request() directly because "basedpyright.organizeimports" is private
+        -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
+        -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
+        ---@diagnostic disable-next-line: param-type-mismatch
+        client.request("workspace/executeCommand", params, nil, bufnr)
+      end, {
+        desc = "Organize Imports",
+      })
+
+      vim.api.nvim_buf_create_user_command(bufnr, "LspPyrightSetPythonPath", set_python_path, {
+        desc = "Reconfigure basedpyright with the provided python path",
+        nargs = 1,
+        complete = "file",
+      })
+    end,
+  }
+)
+
+
+--
+-- Enable LSPs
+--
+
 vim.lsp.enable({
-  "basedpyls",
+  "basedpyright",
   "rust_analyzer",
 })
 
