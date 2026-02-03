@@ -13,6 +13,9 @@ return {
                 path = "~/cernbox/vimwiki",
                 syntax = "markdown",
                 ext = "md",
+                path_html = "~/cernbox/vimwiki_html",
+                custom_wiki2html = "vimwiki_markdown",
+                diary_rel_path = "diary",
             },
         }
         -- vim.g.vimwiki_ext2syntax = {  }
