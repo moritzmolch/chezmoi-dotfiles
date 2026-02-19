@@ -84,10 +84,10 @@ vim.o.scrolloff = 5
 -- Show cursor position in the lower right corner
 vim.o.ruler = true
 
+
 --------------------------------
 -- Tabulators and indentation --
 --------------------------------
-
 
 -- Expand tabs to spaces
 vim.o.expandtab = true
@@ -121,6 +121,16 @@ for file_type, tab_size in pairs(tab_sizes) do
   )
 end
 
+
+-------------
+-- Folding --
+-------------
+
+-- Use expression from nvim_treesitter package to determine folding sections
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- 
 
 ------------------------
 -- Search and replace --
