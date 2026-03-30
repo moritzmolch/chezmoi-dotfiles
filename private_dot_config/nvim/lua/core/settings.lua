@@ -127,10 +127,11 @@ end
 -------------
 
 -- Use expression from nvim_treesitter package to determine folding sections
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
--- 
 
 ------------------------
 -- Search and replace --
