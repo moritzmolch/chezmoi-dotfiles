@@ -10,10 +10,10 @@ return {
     init = function ()
         vim.g.vimwiki_list = {
             {
-                path = "~/cernbox/vimwiki",
+                path = "{{ .cernbox_dir }}/vimwiki",
                 syntax = "markdown",
                 ext = "md",
-                path_html = "~/cernbox/vimwiki_html",
+                path_html = "{{ .cernbox_dir }}/vimwiki_html",
                 custom_wiki2html = "vimwiki_markdown",
                 diary_rel_path = "diary",
             },
