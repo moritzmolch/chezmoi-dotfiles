@@ -7,7 +7,6 @@
 
 return {
     "RRethy/base16-nvim",
-    enabled = false,
     lazy = false,
     config = function ()
         require('base16-colorscheme').with_config({
@@ -19,6 +18,6 @@ return {
             illuminate = true,
             dapui = true,
         })
-        vim.cmd("colorscheme base16-google-dark")
+        vim.cmd("colorscheme base16-chalk")
     end,
 }
